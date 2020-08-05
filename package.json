@@ -1,0 +1,27 @@
+{
+  "name": "irl-backend",
+  "version": "1.0.0",
+  "description": "IRL app backend.",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest --watchAll --verbose"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/WilliamRWalsh/irl-backend.git"
+  },
+  "author": "William R Walsh",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/WilliamRWalsh/irl-backend/issues"
+  },
+  "homepage": "https://github.com/WilliamRWalsh/irl-backend#readme",
+  "dependencies": {
+    "bcrypt": "^5.0.0",
+    "config": "^3.3.1",
+    "express": "^4.17.1",
+    "joi": "^17.1.1",
+    "lodash": "^4.17.19",
+    "mongoose": "^5.9.27"
+  }
+}
