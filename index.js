@@ -1,19 +1,27 @@
 
 const express = require('express');
+const mongoose = require('mongoose');
+const config = require('config');
 const users = require('./routes/users');
+const auth = require('./routes/auth');
 const app = express();
 
+mongoose.connect('mongodb://localhost/irl')
+  .then(() => console.log('Connected to DB...'))
+  .catch(err => console.log(err));
 
+if (!config.get('jwtPrivateKey')) {
+  console.log('FATAL ERROR: jwtPrivateKey not in envs.')
+  process.exit(1);
+}
 
-const port = 3000
+app.use(express.json())
 
-app.use(express.json)
-app.use('/api/users', users)
+// Routes
+app.use('/api/user', users)
+app.use('/api/auth', auth)
 
-app.get('/', (req, res) => {
-  res.send('Hello World!')
-})
-
+const port = process.env.PORT || 3000;
 app.listen(port, () => {
-  console.log(`Example app listening at http://localhost:${port}`)
+  console.log(`Listening at http://localhost:${port}`)
 })
