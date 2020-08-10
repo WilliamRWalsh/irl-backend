@@ -25,7 +25,17 @@ const questTemplateSchema = new mongoose.Schema({
   },
 });
 
-const QuestTemplate = mongoose.model('QuestTemplate', QuestTemplate);
+const QuestTemplate = mongoose.model('QuestTemplate', questTemplateSchema);
+
+function validateQuestTemplate(questTemplate) {
+  const schema = Joi.object({
+    name: Joi.string().min(2).max(128).required(),
+    description: Joi.string().min(4).max(255).required(),
+    xp: Joi.number().required(),
+  })
+
+  return schema.validate(questTemplate);
+}
 
 exports.QuestTemplate = QuestTemplate;
-exports.validate = validateQuestTemplate;
+exports.validateQuestTemplate = validateQuestTemplate;
