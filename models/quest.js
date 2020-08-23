@@ -1,14 +1,14 @@
-const Joi = require('joi')
-const mongoose = require('mongoose')
+const Joi = require("joi");
+const mongoose = require("mongoose");
 
-const DAY_IN_MICRO_SECONDS = 24*60*60*1000;
+const DAY_IN_MICRO_SECONDS = 24 * 60 * 60 * 1000;
 
 const questSchema = new mongoose.Schema({
   questTemplate: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'User',
+    ref: "User",
   },
-  isCompleted: Boolean,
+  isCompleted: { type: Boolean, default: false },
   created_at: {
     type: Date,
     default: Date.now,
@@ -16,9 +16,9 @@ const questSchema = new mongoose.Schema({
   deadline_at: {
     type: Date,
     default: Date.now + DAY_IN_MICRO_SECONDS,
-  }
+  },
 });
 
-const Quest = mongoose.model('Quest', questSchema);
+const Quest = mongoose.model("Quest", questSchema);
 
 exports.Quest = Quest;

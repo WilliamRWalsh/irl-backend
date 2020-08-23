@@ -1,29 +1,32 @@
-
-const {User} = require('../models/user');
-const _ = require('lodash');
-const express = require('express');
-const bcrypt = require('bcrypt');
-const Joi = require('joi')
+const { User } = require("../models/user");
+const _ = require("lodash");
+const express = require("express");
+const bcrypt = require("bcrypt");
+const Joi = require("joi");
 
 const router = express.Router();
 
-
-router.post('/', async (req, res) => {
+router.post("/", async (req, res) => {
+  console.log("whatawta");
   /* Validate */
-  const { error } = validate(req.body); 
+  const { error } = validate(req.body);
   if (error) return res.status(400).send(error.details[0].message);
 
   /* Check if email exists */
   let user = await User.findOne({ email: req.body.email });
-  if (!user) return res.status(400).send('Invalid Email or Password!');
+  if (!user) return res.status(400).send("Invalid Email or Password!");
 
-  const isPasswordValid = await bcrypt.compare(req.body.password, user.password);
+  const isPasswordValid = await bcrypt.compare(
+    req.body.password,
+    user.password
+  );
 
-  if (!isPasswordValid) return res.status(400).send('Invalid Email or Password!');
+  if (!isPasswordValid)
+    return res.status(400).send("Invalid Email or Password!");
 
   const token = user.generateAuthToken();
 
-  res.header('x-auth-token', token).status(200).send();
+  res.header("x-auth-token", token).status(200).send();
 });
 
 function validate(req) {
@@ -35,4 +38,4 @@ function validate(req) {
   return schema.validate(req);
 }
 
-module.exports = router; 
+module.exports = router;
