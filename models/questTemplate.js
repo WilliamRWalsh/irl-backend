@@ -1,5 +1,5 @@
-const Joi = require('joi')
-const mongoose = require('mongoose')
+const Joi = require("joi");
+const mongoose = require("mongoose");
 
 const questTemplateSchema = new mongoose.Schema({
   name: {
@@ -17,7 +17,7 @@ const questTemplateSchema = new mongoose.Schema({
   },
   user: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'User',
+    ref: "User",
   },
   xp: {
     type: Number,
@@ -25,14 +25,14 @@ const questTemplateSchema = new mongoose.Schema({
   },
 });
 
-const QuestTemplate = mongoose.model('QuestTemplate', questTemplateSchema);
+const QuestTemplate = mongoose.model("QuestTemplate", questTemplateSchema);
 
 function validateQuestTemplate(questTemplate) {
   const schema = Joi.object({
     name: Joi.string().min(2).max(128).required(),
     description: Joi.string().min(4).max(255).required(),
     xp: Joi.number().required(),
-  })
+  });
 
   return schema.validate(questTemplate);
 }

@@ -4,9 +4,13 @@ const mongoose = require("mongoose");
 const DAY_IN_MICRO_SECONDS = 24 * 60 * 60 * 1000;
 
 const questSchema = new mongoose.Schema({
-  questTemplate: {
+  user: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "User",
+  },
+  questTemplate: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "QuestTemplate",
   },
   isCompleted: { type: Boolean, default: false },
   created_at: {
