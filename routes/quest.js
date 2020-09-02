@@ -28,21 +28,29 @@ router.post("/template", auth, async (req, res) => {
   res.status(201).send(newQuest);
 });
 
-// Complete Quest
 router.patch("/:id", auth, async (req, res) => {
+  /*
+   * Complete Quest
+   */
   /* Validate */
   // check for isCompleted?
 
   // find if exists update
-  // await Quest.findById(req.params.id).update({'isCompleted': true})
+  await Quest.findById(req.params.id).update({ isCompleted: true });
+
+  // TODO: Update Skills
 
   res.status(200).send();
 });
 
 // Get all Quests
 router.get("/", auth, async (req, res) => {
+  const now = Date.now();
+
   const quests = await Quest.find({
     user: req.user,
+    createdAt: { $lte: now },
+    deadlineAt: { $gte: now },
   });
 
   res.status(200).send(quests);

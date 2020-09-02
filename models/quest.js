@@ -4,25 +4,46 @@ const mongoose = require("mongoose");
 const DAY_IN_MICRO_SECONDS = 24 * 60 * 60 * 1000;
 
 const questSchema = new mongoose.Schema({
+  name: {
+    type: String,
+    unique: false,
+    required: true,
+    minlength: 2,
+    maxlength: 128,
+  },
+  description: {
+    type: String,
+    required: true,
+    minlength: 2,
+    maxlength: 2024,
+  },
   user: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "User",
   },
-  questTemplate: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "QuestTemplate",
+  xp: {
+    type: Number,
+    required: true,
   },
   isCompleted: { type: Boolean, default: false },
-  created_at: {
+  createdAt: {
     type: Date,
     default: Date.now,
   },
-  deadline_at: {
+  deadlineAt: {
     type: Date,
-    default: Date.now + DAY_IN_MICRO_SECONDS,
+    default: () => Date.now + DAY_IN_MICRO_SECONDS,
   },
 });
 
 const Quest = mongoose.model("Quest", questSchema);
+
+function validateQuest(quest) {
+  const schema = Joi.object({
+    isCompleted: Joi.bool().required(),
+  });
+
+  return schema.validate(quest);
+}
 
 exports.Quest = Quest;
