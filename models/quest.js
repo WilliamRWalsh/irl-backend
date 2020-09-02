@@ -34,16 +34,22 @@ const questSchema = new mongoose.Schema({
     type: Date,
     default: () => Date.now + DAY_IN_MICRO_SECONDS,
   },
+  skill: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Skill",
+  },
 });
 
 const Quest = mongoose.model("Quest", questSchema);
 
 function validateQuest(quest) {
   const schema = Joi.object({
-    isCompleted: Joi.bool().required(),
+    // TODO: Finish this
+    name: Joi.string().min(2).max(128).required(),
   });
 
   return schema.validate(quest);
 }
 
 exports.Quest = Quest;
+exports.validateQuest = validateQuest;

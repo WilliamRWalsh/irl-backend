@@ -8,11 +8,16 @@ const _ = require("lodash");
 const express = require("express");
 const bcrypt = require("bcrypt");
 const Joi = require("joi");
+const { Skill } = require("../models/skill");
 
 const router = express.Router();
 
 // New Quest Template
 router.post("/template", auth, async (req, res) => {
+  /*
+   * Create New Quest Template
+   */
+
   /* Validate */
   const { error } = validateQuestTemplate(req.body);
   if (error) return res.status(400).send(error.details[0].message);
@@ -32,19 +37,26 @@ router.patch("/:id", auth, async (req, res) => {
   /*
    * Complete Quest
    */
-  /* Validate */
-  // check for isCompleted?
 
-  // find if exists update
-  await Quest.findById(req.params.id).update({ isCompleted: true });
+  const quest = await Quest.findById(req.params.id).populate("skill");
+  if (quest.isCompleted)
+    return res.status(400).send("Quest is already completed.");
 
-  // TODO: Update Skills
+  quest.isCompleted = true;
+  quest.save();
+
+  // TODO: Create service to update skill xp
+  quest.skill.xp += quest.xp;
+  quest.skill.save();
 
   res.status(200).send();
 });
 
-// Get all Quests
 router.get("/", auth, async (req, res) => {
+  /*
+   * Get All Quests
+   */
+
   const now = Date.now();
 
   const quests = await Quest.find({
