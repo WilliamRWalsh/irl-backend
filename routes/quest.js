@@ -6,13 +6,9 @@ const { Quest } = require("../models/quest");
 const auth = require("../middleware/auth");
 const _ = require("lodash");
 const express = require("express");
-const bcrypt = require("bcrypt");
-const Joi = require("joi");
-const { Skill } = require("../models/skill");
 
 const router = express.Router();
 
-// New Quest Template
 router.post("/template", auth, async (req, res) => {
   /*
    * Create New Quest Template
