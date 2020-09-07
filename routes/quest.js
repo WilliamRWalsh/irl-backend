@@ -1,11 +1,12 @@
+const express = require("express");
+const _ = require("lodash");
 const {
   QuestTemplate,
   validateQuestTemplate,
 } = require("../models/questTemplate");
 const { Quest } = require("../models/quest");
+const levelUpSkill = require("../services/skillService");
 const auth = require("../middleware/auth");
-const _ = require("lodash");
-const express = require("express");
 
 const router = express.Router();
 
@@ -38,12 +39,12 @@ router.patch("/:id", auth, async (req, res) => {
   if (quest.isCompleted)
     return res.status(400).send("Quest is already completed.");
 
+  // Complete Quest
   quest.isCompleted = true;
   quest.save();
 
-  // TODO: Create service to update skill xp
-  quest.skill.xp += quest.xp;
-  quest.skill.save();
+  // Level up Skill
+  levelUpSkill(quest);
 
   res.status(200).send();
 });
