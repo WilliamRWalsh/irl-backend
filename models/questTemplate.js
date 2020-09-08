@@ -23,6 +23,10 @@ const questTemplateSchema = new mongoose.Schema({
     type: Number,
     required: true,
   },
+  levelXp: {
+    type: Number,
+    required: true,
+  },
 });
 
 const QuestTemplate = mongoose.model("QuestTemplate", questTemplateSchema);

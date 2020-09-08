@@ -8,8 +8,20 @@
       "type": "node",
       "request": "launch",
       "name": "Launch Program",
-      "skipFiles": ["<node_internals>/**"],
+      "skipFiles": [
+        "<node_internals>/**"
+      ],
       "program": "${workspaceFolder}\\index.js",
+      "env": {
+        "irl_base_url": "localhost:3000/",
+        "irl_jwtPrivateKey": "irl_jwtPrivateKey"
+      }
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Create daily quests.",
+      "program": "${workspaceFolder}\\services\\quests.js",
       "env": {
         "irl_base_url": "localhost:3000/",
         "irl_jwtPrivateKey": "irl_jwtPrivateKey"

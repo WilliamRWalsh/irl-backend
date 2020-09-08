@@ -25,19 +25,30 @@ const questSchema = new mongoose.Schema({
     type: Number,
     required: true,
   },
-  isCompleted: { type: Boolean, default: false },
+  isCompleted: {
+    type: Boolean,
+    default: false,
+    required: true,
+  },
   createdAt: {
     type: Date,
-    default: Date.now,
+    default: Date.now(),
+    required: true,
   },
   deadlineAt: {
     type: Date,
-    default: () => Date.now + DAY_IN_MICRO_SECONDS,
+    default: () => Date.now() + DAY_IN_MICRO_SECONDS,
+    required: true,
   },
   skill: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "Skill",
   },
+  isActive: {
+    type: Boolean,
+    default: false,
+    required: true,
+  }
 });
 
 const Quest = mongoose.model("Quest", questSchema);
