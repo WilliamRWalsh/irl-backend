@@ -15,17 +15,17 @@ const questTemplateSchema = new mongoose.Schema({
     minlength: 2,
     maxlength: 2024,
   },
-  user: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "User",
-  },
   xp: {
     type: Number,
     required: true,
   },
-  levelXp: {
-    type: Number,
-    required: true,
+  user: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "User",
+  },
+  skill: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Skill",
   },
 });
 

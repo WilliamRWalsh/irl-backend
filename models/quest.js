@@ -48,7 +48,7 @@ const questSchema = new mongoose.Schema({
     type: Boolean,
     default: false,
     required: true,
-  }
+  },
 });
 
 const Quest = mongoose.model("Quest", questSchema);
