@@ -1,34 +1,10 @@
 const express = require("express");
 const _ = require("lodash");
-const {
-  QuestTemplate,
-  validateQuestTemplate,
-} = require("../models/questTemplate");
 const { Quest } = require("../models/quest");
 const levelUpSkill = require("../services/skillService");
 const auth = require("../middleware/auth");
 
 const router = express.Router();
-
-router.post("/template", auth, async (req, res) => {
-  /*
-   * Create New Quest Template
-   */
-
-  /* Validate */
-  const { error } = validateQuestTemplate(req.body);
-  if (error) return res.status(400).send(error.details[0].message);
-
-  const newQuest = {
-    user: req.user._id,
-    ..._.pick(req.body, ["name", "description", "xp"]),
-  };
-
-  const questTemplate = new QuestTemplate(newQuest);
-  await questTemplate.save();
-
-  res.status(201).send(newQuest);
-});
 
 router.patch("/:id", auth, async (req, res) => {
   /*

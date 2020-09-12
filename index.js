@@ -5,6 +5,7 @@ const users = require("./routes/users");
 const auth = require("./routes/auth");
 const quest = require("./routes/quest");
 const skill = require("./routes/skill");
+const template = require("./routes/template");
 const app = express();
 const cors = require("cors");
 
@@ -31,6 +32,7 @@ app.use(express.json());
 app.use("/api/user", users);
 app.use("/api/auth", auth);
 app.use("/api/quest", quest);
+app.use("/api/template", template);
 app.use("/api/skill", skill);
 
 const port = process.env.PORT || 8080;

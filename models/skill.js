@@ -31,6 +31,10 @@ const skillSchema = new mongoose.Schema({
     type: Number,
     required: true,
   },
+  color: {
+    type: String,
+    required: true,
+  },
 });
 
 const Skill = mongoose.model("Skill", skillSchema);

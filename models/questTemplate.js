@@ -27,6 +27,11 @@ const questTemplateSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: "Skill",
   },
+  isActive: {
+    type: Boolean,
+    default: false,
+    required: true,
+  },
 });
 
 const QuestTemplate = mongoose.model("QuestTemplate", questTemplateSchema);
@@ -36,6 +41,7 @@ function validateQuestTemplate(questTemplate) {
     name: Joi.string().min(2).max(128).required(),
     description: Joi.string().min(4).max(255).required(),
     xp: Joi.number().required(),
+    skill: Joi.string().required(), // Check ref is valid
   });
 
   return schema.validate(questTemplate);
