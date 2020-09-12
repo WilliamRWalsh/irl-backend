@@ -21,9 +21,9 @@ if (!config.get("jwtPrivateKey")) {
 
 corsOptions = {
   origin: true,
-  allowedHeaders: ["Content-Type", "Authorization", "x-auth-token", "Accept"],
+  allowedHeaders: ["Content-Type", "Authorization", "Accept"],
   credentials: true,
-  exposedHeaders: ["x-auth-token"],
+  exposedHeaders: ["Authorization"],
 };
 app.use(cors(corsOptions));
 app.use(express.json());
