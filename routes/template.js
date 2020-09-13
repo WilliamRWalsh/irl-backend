@@ -60,4 +60,17 @@ router.patch("/:id", auth, async (req, res) => {
   res.status(200).send(template);
 });
 
+router.delete("/:id", auth, async (req, res) => {
+  /*
+   * Patch Template
+   */
+
+  const template = await QuestTemplate.deleteOne({
+    _id: req.params.id,
+    user: req.user,
+  });
+
+  res.status(200).send(template);
+});
+
 module.exports = router;
