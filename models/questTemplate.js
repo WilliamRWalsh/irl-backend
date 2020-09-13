@@ -42,6 +42,7 @@ function validateQuestTemplate(questTemplate) {
     description: Joi.string().min(4).max(255).required(),
     xp: Joi.number().required(),
     skill: Joi.string().required(), // Check ref is valid
+    isActive: Joi.boolean().required(),
   });
 
   return schema.validate(questTemplate);

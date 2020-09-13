@@ -10,7 +10,7 @@ const router = express.Router();
 
 router.post("/", auth, async (req, res) => {
   /*
-   * Create New Quest Template
+   * Create New Template
    */
 
   /* Validate */
@@ -26,6 +26,38 @@ router.post("/", auth, async (req, res) => {
   await questTemplate.save();
 
   res.status(201).send(newTemplate);
+});
+
+router.get("/", auth, async (req, res) => {
+  /*
+   * Get All Templates
+   */
+  const templates = await QuestTemplate.find({ user: req.user });
+  res.status(200).send(templates);
+});
+
+router.patch("/:id", auth, async (req, res) => {
+  /*
+   * Patch Template
+   */
+
+  const templateChanges = _.pick(req.body, [
+    "name",
+    "description",
+    "xp",
+    "skill",
+    "isActive",
+  ]);
+
+  const { error } = validateQuestTemplate(templateChanges);
+  if (error) return res.status(400).send(error.details[0].message);
+
+  const template = await QuestTemplate.findByIdAndUpdate(
+    req.params.id,
+    templateChanges
+  );
+
+  res.status(200).send(template);
 });
 
 module.exports = router;
