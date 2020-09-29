@@ -18,4 +18,4 @@ function xpForLevel(level) {
   return 50 * level;
 }
 
-module.exports = levelUpSkill;
+module.exports = { levelUpSkill, xpForLevel };

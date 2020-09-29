@@ -1,5 +1,6 @@
 const Joi = require("joi");
 const mongoose = require("mongoose");
+const { xpForLevel } = require("../services/skillService");
 
 const skillSchema = new mongoose.Schema({
   name: {
@@ -11,9 +12,8 @@ const skillSchema = new mongoose.Schema({
   },
   description: {
     type: String,
-    required: true,
-    minlength: 2,
     maxlength: 2024,
+    default: "",
   },
   user: {
     type: mongoose.Schema.Types.ObjectId,
@@ -22,14 +22,17 @@ const skillSchema = new mongoose.Schema({
   level: {
     type: Number,
     required: true,
+    default: 1,
   },
   xp: {
     type: Number,
     required: true,
+    default: 0,
   },
   levelXp: {
     type: Number,
     required: true,
+    default: xpForLevel(1),
   },
   color: {
     type: String,
@@ -41,8 +44,8 @@ const Skill = mongoose.model("Skill", skillSchema);
 
 function validateSkill(skill) {
   const schema = Joi.object({
-    // TODO: Finish this
     name: Joi.string().min(2).max(128).required(),
+    color: Joi.string().min(2).max(128).required(),
   });
 
   return schema.validate(skill);
