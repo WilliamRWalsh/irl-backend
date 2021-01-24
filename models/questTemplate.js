@@ -11,12 +11,13 @@ const questTemplateSchema = new mongoose.Schema({
   },
   description: {
     type: String,
-    required: true,
+    required: false,
     minlength: 2,
     maxlength: 2024,
   },
   xp: {
     type: Number,
+    default: 5,
     required: true,
   },
   user: {
@@ -29,7 +30,7 @@ const questTemplateSchema = new mongoose.Schema({
   },
   isActive: {
     type: Boolean,
-    default: false,
+    default: true,
     required: true,
   },
 });
@@ -39,8 +40,8 @@ const QuestTemplate = mongoose.model("QuestTemplate", questTemplateSchema);
 function validateQuestTemplate(questTemplate) {
   const schema = Joi.object({
     name: Joi.string().min(2).max(128).required(),
-    description: Joi.string().min(4).max(255).required(),
-    xp: Joi.number().required(),
+    // description: Joi.string().min(4).max(255).required(),
+    // xp: Joi.number().required(),
     skill: Joi.string().required(), // Check ref is valid
     isActive: Joi.boolean(),
   });
